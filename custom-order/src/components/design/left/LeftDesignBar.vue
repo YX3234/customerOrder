@@ -23,6 +23,8 @@ const handleSelect = (key: string, keypath: string[]) => {
 <style scoped>
 .outer {
     display: flex;
+    width: 15vw;
+    background-color: aqua;
 }
 
 .content {
