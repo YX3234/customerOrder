@@ -7,6 +7,7 @@ const selectedIndex = ref('0')
 const handleSelect = (key: string, keypath: string[]) => {
     selectedIndex.value = key;
 }
+const test = ref('1')
 </script>
 <template>
     <div class="outer">
@@ -15,8 +16,8 @@ const handleSelect = (key: string, keypath: string[]) => {
             <el-menu-item index="1">大纲</el-menu-item>
         </el-menu>
         <div class="content">
-            <Plugins v-if="selectedIndex === '0'"></Plugins>
-            <Outline v-if="selectedIndex === '1'"></Outline>
+            <Plugins v-show="selectedIndex === '0'" v-model="test"></Plugins>
+            <Outline v-show="selectedIndex === '1'"></Outline>
         </div>
     </div>
 </template>

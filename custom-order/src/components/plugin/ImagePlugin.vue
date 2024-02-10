@@ -1,6 +1,10 @@
 <template>
     <div class="imageWrapper">
-        <el-upload action="#" list-type="picture-card" :auto-upload="false"></el-upload>
+        <el-upload action="#" list-type="picture-card" :auto-upload="false">
+            <el-icon>
+                <Plus />
+            </el-icon>
+        </el-upload>
     </div>
 </template>
 

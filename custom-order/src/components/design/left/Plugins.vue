@@ -20,6 +20,8 @@ import { storeToRefs } from 'pinia';
 import { onMounted, ref } from 'vue';
 
 const dragStore = useDragStore();
+const model = defineModel("compoentTest");
+model.value = 2;
 const { sourceObj, pluginList, containerList } = storeToRefs(dragStore);
 const draggable = useDraggable(sourceObj, pluginList, {
     animation: 150,
