@@ -25,10 +25,10 @@ const draggable = useDraggable(sourceObj, pluginList, {
     animation: 150,
     group: { name: 'plugin', pull: 'clone', put: false },
     sort: false,
-    // clone: (ele) => {
-    //     containerList.value.push(ele);
-    //     return ele;
-    // },
+    clone: (ele) => {
+        // containerList.value.push(ele);
+        return { id: ele.id + 'clone' + containerList.value.length, name: ele.name };
+    },
     onClone(event) {
         // containerList.value =
         console.log('clone', event)

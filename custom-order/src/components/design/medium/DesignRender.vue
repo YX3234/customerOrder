@@ -1,10 +1,16 @@
 <template>
     <div class="mediumOuter">
         <div class="setDragaArea" ref="targetObj">
+            <!-- 没有拖动时的默认项 -->
             <div v-if="isDefault">{{ renderList[0].name }}</div>
-            <div v-for="item in containerList" :key="item.id">
-                {{ compName=getPluginComponent(item.name)}}
-                <component :is="compName"></component>
+            <!-- 插件显示的区域 -->
+            <div v-for="item in containerList.filter((e) => e !== undefined)" :key="item.id">
+                {{
+                    (() => {
+                        compName = getPluginComponent(item.name); return;
+                    })()
+                }}
+                <component v-show="compName !== 'undefined'" :is="compName"></component>
             </div>
         </div>
     </div>
@@ -20,16 +26,18 @@ import { useDraggable } from 'vue-draggable-plus';
 const dragStore = useDragStore();
 const { targetObj, containerList } = storeToRefs(dragStore);
 const renderList = [{ id: '0', name: "请拖动插件" }];
-const isDefault = ref(false);
+const isDefault = ref(true);
 const getPluginComponent = (type: string) => {
+    if (isDefault.value) isDefault.value = !containerList.value.length;
     switch (type) {
         case "文本": return "TextPlugin";
+        case "按钮": return "ButtonPlugin";
+        case "图片": return "ImagePlugin";
         default: return "undefined";
     }
 }
 console.log(getPluginComponent("文本"))
-const compName = ref();
-isDefault.value = !containerList.value.length;
+let compName = 'undefined';    //不能是响应式数据，在执行模板中的IIFE时会频繁触发刷新
 useDraggable(targetObj, containerList, {
     animation: 150,
     group: "plugin",
@@ -37,16 +45,13 @@ useDraggable(targetObj, containerList, {
         console.log("update");
     }
 })
-// onMounted(() => {
-//     draggable.start();
-//     console.log(containerList.value);
-// })
 
-console.log(containerList.value);
-// onMounted(() => {
-//     console.log(containerList.value, "1");
-//     draggable.start();
-// })
+onMounted(() => {
+
+})
+onUpdated(() => {
+})
+
 </script>
 
 <style scoped>

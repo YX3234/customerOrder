@@ -8,7 +8,8 @@ export const useDragStore = defineStore('drag', () => {
     { id: 'p1', name: '轮播图' },
     { id: 'p2', name: '图片' },
     { id: 'p3', name: '文本' },
-    { id: 'p4', name: '按钮' }
+    { id: 'p4', name: '按钮' },
+    { id: 'p5', name: '容器' }
   ])
   const containerList = ref<{ id: string; name: string }[]>([])
 
