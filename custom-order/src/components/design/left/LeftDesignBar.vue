@@ -16,7 +16,7 @@ const test = ref('1')
             <el-menu-item index="1">大纲</el-menu-item>
         </el-menu>
         <div class="content">
-            <Plugins v-show="selectedIndex === '0'" v-model="test"></Plugins>
+            <Plugins v-show="selectedIndex === '0'"></Plugins>
             <Outline v-show="selectedIndex === '1'"></Outline>
         </div>
     </div>
@@ -24,7 +24,7 @@ const test = ref('1')
 <style scoped>
 .outer {
     display: flex;
-    width: 15vw;
+    /* width: 15vw; */
     background-color: aqua;
 }
 

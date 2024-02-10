@@ -11,6 +11,8 @@ import * as ElementPlusIconsVue from '@element-plus/icons-vue'
 import TextPluginVue from './components/plugin/TextPlugin.vue'
 import ButtonPluginVue from './components/plugin/ButtonPlugin.vue'
 import ImagePluginVue from './components/plugin/ImagePlugin.vue'
+import CarouselPluginVue from './components/plugin/CarouselPlugin.vue'
+import WrapperPluginVue from './components/plugin/WrapperPlugin.vue'
 
 const app = createApp(App)
 
@@ -26,5 +28,7 @@ app
   .component('TextPlugin', TextPluginVue)
   .component('ButtonPlugin', ButtonPluginVue)
   .component('ImagePlugin', ImagePluginVue)
+  .component('CarouselPlugin', CarouselPluginVue)
+  .component('WrapperPlugin', WrapperPluginVue)
 
 app.mount('#app')

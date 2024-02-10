@@ -1,15 +1,66 @@
 <template>
     <div class="imageWrapper">
-        <el-upload action="#" list-type="picture-card" :auto-upload="false">
-            <el-icon>
+        <el-upload class="" action="#" list-type="picture-card" :auto-upload="false" :on-change="handleChange">
+            <!-- <img v-if="imageUrl" :src="imageUrl" class="avatar" /> -->
+            <el-icon class="avatar-uploader-icon">
                 <Plus />
             </el-icon>
         </el-upload>
+        <!-- <el-upload action="#" list-type="picture-card" :auto-upload="false">
+            <el-icon>
+                <Plus />
+            </el-icon>
+
+            <template #file="{ file }">
+                <div>
+                    <img class="el-upload-list__item-thumbnail" :src="file.url" alt="" />
+                    <span class="el-upload-list__item-actions">
+                        <span class="el-upload-list__item-preview" @click="handlePictureCardPreview(file)">
+                            <el-icon><zoom-in /></el-icon>
+                        </span>
+                        <span v-if="!disabled" class="el-upload-list__item-delete" @click="handleDownload(file)">
+                            <el-icon>
+                                <Download />
+                            </el-icon>
+                        </span>
+                        <span v-if="!disabled" class="el-upload-list__item-delete" @click="handleRemove(file)">
+                            <el-icon>
+                                <Delete />
+                            </el-icon>
+                        </span>
+                    </span>
+                </div>
+            </template>
+        </el-upload>
+
+        <el-dialog v-model="dialogVisible">
+            <img w-full :src="dialogImageUrl" alt="Preview Image" />
+        </el-dialog>-->
     </div>
 </template>
 
 <script setup lang="ts">
-import { } from "vue"
+import { ref } from 'vue'
+import type { UploadFile, UploadProps } from 'element-plus'
+
+const imageList = ref<UploadFile[]>([])
+
+const handleChange: UploadProps['onChange'] = (file, files) => {
+    imageList.value = files;
+    console.log(imageList.value);
+}
+
+
 </script>
 
-<style lang="scss" scoped></style>
+<style scoped>
+.imageWrapper {
+    overflow: hidden;
+    width: 200px;
+    height: 150px;
+}
+
+.disabled {
+    display: none;
+}
+</style>

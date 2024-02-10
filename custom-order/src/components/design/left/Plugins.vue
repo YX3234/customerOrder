@@ -9,7 +9,23 @@
     <!-- </div>  -->
     <!-- ref的值是变量sourceObj, vue语法插件出bug了 -->
     <div ref="sourceObj" class="plugins">
-        <div v-for="plugin in pluginList" :key="plugin.id" class="plugin">{{ plugin.name || "-" }}</div>
+        <!-- <div v-for="plugin in pluginList" :key="plugin.list[0].key" class="plugin">
+            {{ plugin.title || "-" }}
+            <div v-for="item in plugin.list">
+                <DragItemVue :data="item" :groupName="plugin.list[0].key" @click="onDragItemClick($event, item)">
+                </DragItemVue>
+            </div>
+        </div> -->
+        <div class="drag-group" v-for="(item, index) in pluginList" :key="index">
+            <div class="drag-group__title">
+                {{ item.title }}
+            </div>
+            <div class="drag-group__content">
+                <div class="drag-group-item" v-for="it in item.list" :key="it.key">
+                    <DragItemVue :data="it" :groupName="'demo'" @click="onDragItemClick($event, it)" />
+                </div>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -18,41 +34,45 @@ import { useDragStore } from '@/stores/drag';
 import { useDraggable } from 'vue-draggable-plus'
 import { storeToRefs } from 'pinia';
 import { onMounted, ref } from 'vue';
+import DragItemVue from '@/components/grid/DragItem.vue';
 
 const dragStore = useDragStore();
-const model = defineModel("compoentTest");
-model.value = 2;
-const { sourceObj, pluginList, containerList } = storeToRefs(dragStore);
-const draggable = useDraggable(sourceObj, pluginList, {
-    animation: 150,
-    group: { name: 'plugin', pull: 'clone', put: false },
-    sort: false,
-    clone: (ele) => {
-        // containerList.value.push(ele);
-        return { id: ele.id + 'clone' + containerList.value.length, name: ele.name };
-    },
-    onClone(event) {
-        // containerList.value =
-        console.log('clone', event)
-    }
-});
+const { sourceObj, pluginList, containerList, } = storeToRefs(dragStore);
+const onDragItemClick = (e: any, item: any) => {
+    console.log(e, item)
+}
+
+// const draggable = useDraggable(sourceObj, pluginList, {
+//     animation: 150,
+//     group: { name: 'plugin', pull: 'clone', put: false },
+//     sort: false,
+//     clone: (ele) => {
+//         // containerList.value.push(ele);
+//         return { id: ele.id + 'clone' + containerList.value.length, name: ele.name };
+//     },
+//     onClone(event) {
+//         // containerList.value =
+//         console.log('clone', event)
+//     }
+// });
 //只有组件挂载后才能拖拽dom元素，直接写在script setup中会报错，无法拖拽
-onMounted(() => {
-    draggable.start();
-})
+// onMounted(() => {
+//     draggable.start();
+// })
 </script>
 <style scoped>
 .plugins {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
+    /* display: flex; */
+    /* flex-wrap: wrap; */
+    /* justify-content: space-around; */
+    padding: 20px;
 }
 
-.plugin {
+/* .plugin {
     width: 50px;
     height: 50px;
     border: 1px solid black;
     line-height: 50px;
     text-align: center;
-}
+} */
 </style>

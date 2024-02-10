@@ -1,7 +1,7 @@
 {
   "extends": "@vue/tsconfig/tsconfig.dom.json",
-  "include": ["env.d.ts", "src/**/*", "src/**/*.vue"],
-  "files": ["src/views/LayoutView.vue","src/views/DesignView.vue"],
+  "include": ["env.d.ts", "src/**/*", "src/**/*.vue","src/components/**/*.vue"],
+  "files": ["src/views/LayoutView.vue","src/views/DesignView.vue",],
   "exclude": ["src/**/__tests__/*"],
   "compilerOptions": {
     "composite": true,
