@@ -56,8 +56,8 @@ const handleChange: UploadProps['onChange'] = (file, files) => {
 <style scoped>
 .imageWrapper {
     overflow: hidden;
-    width: 200px;
-    height: 150px;
+    width: 100%;
+    height: 100%;
 }
 
 .disabled {

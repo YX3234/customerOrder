@@ -21,15 +21,14 @@ const resizeing = ref(false);
 
 const previewStyle = computed(() => {
   return {
-    'grid-area': `${props.data.y + 1} / ${props.data.x + 1} / ${
-      props.data.y + props.data.row + 1
-    }/ ${props.data.x + props.data.column + 1}`,
+    'grid-area': `${props.data.y + 1} / ${props.data.x + 1} / ${props.data.y + props.data.row + 1
+      }/ ${props.data.x + props.data.column + 1}`,
     ...(moveing.value
       ? {
-          opacity: 0,
-          // 将当前元素移出容器外,将元素占位空置出来
-          transform: `translate(-999999999px, -9999999999px)`,
-        }
+        opacity: 0,
+        // 将当前元素移出容器外,将元素占位空置出来
+        transform: `translate(-999999999px, -9999999999px)`,
+      }
       : {}),
     ...(resizeing.value ? { opacity: 0.5 } : {}),
   };
@@ -79,23 +78,13 @@ const unset = (target) => {
 </script>
 
 <template>
-  <div
-    class="preview-item"
-    :style="previewStyle"
-    draggable="true"
-    @dragstart="onDragstart"
-    @dragend="onDragend"
-    @mousedown="onMousedown"
-  >
+  <div class="preview-item" :style="previewStyle" draggable="true" @dragstart="onDragstart" @dragend="onDragend"
+    @mousedown="onMousedown">
     <slot>
       <div class="preview-item__default"></div>
     </slot>
     <slot name="close">
-      <div
-        class="close-btn"
-        :size="20"
-        @click.stop.prevent="$emit('close')"
-      ></div>
+      <div class="close-btn" :size="20" @click.stop.prevent="$emit('close')"></div>
     </slot>
   </div>
 </template>
@@ -123,6 +112,7 @@ const unset = (target) => {
     border-radius: 6px;
     background-color: #efefef;
     border: 2px solid #2c68f325;
+
     &:hover {
       border-color: #2c68f399;
       transition: all 0.2s;
@@ -160,10 +150,12 @@ const unset = (target) => {
       right: 0;
       left: 0;
     }
+
     &:before {
       transform: rotate(-225deg);
       top: 0;
     }
+
     &:after {
       transform: rotate(225deg);
       top: 0;

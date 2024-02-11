@@ -1,6 +1,6 @@
 <script setup lang="ts">
-
 import { dragStore } from './drag';
+
 
 const props = withDefaults(
   defineProps<{
@@ -13,7 +13,7 @@ const props = withDefaults(
   }
 );
 
-const onDragstart = (e) => dragStore.set(props.groupName, { ...props.data });
+const onDragstart = (e) => { dragStore.set(props.groupName, { ...props.data }); };
 const onDragend = () => dragStore.remove(props.groupName);
 </script>
 <template>

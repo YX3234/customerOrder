@@ -1,6 +1,6 @@
 <template>
     <div class="mediumOuter">
-        <!-- <div class="setDragaArea" ref="targetObj">
+        <!-- 
             没有拖动时的默认项
             <div v-if="isDefault">{{ renderList[0].name }}</div>
             插件显示的区域
@@ -10,30 +10,41 @@
                         compName = getPluginComponent(item.name); return;
                     })()
                 }}
-                <component v-show="compName !== 'undefined'" :is="compName"></component>
+                
+            </div> -->
+        <div class="setDragaArea" ref="targetObj">
+            <DropContent v-model="data" ref="dropContentRef" group-name="drag-demo" :row="12" :column="12" :gap="6">
+                <template #preview-item="{ data }">
+                    <div style="background-color: sandybrown;height: 100%;border-radius: 6px;">
+                        <component :is="data?.key" :disabled="true" :data="data"></component>
+                    </div>
+                </template>
+                <template #move-mask="{ isPutDown }">
+                    <div :style="{
+                        width: '100%',
+                        height: '100%',
+                        border: '2px solid #2867f979',
+                        backgroundColor: isPutDown ? '#2867f91c' : '#ff000055',
+                        borderColor: isPutDown ? '#2c68f3' : '#ff000079',
+                        'border-radius': '6px',
+                        display: 'flex',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        fontWeight: '600',
+                    }">
+                        {{ isPutDown ? '可以放置' : '不可放置' }}
+                    </div>
+                </template>
+            </DropContent>
+            <div class="mb16">
+                <button @click="() => dropContentRef?.addRow()">添加行</button>
+                <button @click="() => dropContentRef?.deleteRow()">删除行</button>
             </div>
-        </div> -->
-        <DropContent v-model="data1" ref="dropContentRef" group-name="drag-demo" :row="6" :column="6" :gap="6">
-            <template #preview-item="{ data }">
-                <div style="height: 100%; background: #f9f1c7; border-radius: 6px"></div>
-            </template>
-            <template #move-mask="{ isPutDown }">
-                <div :style="{
-                    width: '100%',
-                    height: '100%',
-                    border: '2px solid #2867f979',
-                    backgroundColor: isPutDown ? '#2867f91c' : '#ff000055',
-                    borderColor: isPutDown ? '#2c68f3' : '#ff000079',
-                    'border-radius': '6px',
-                    display: 'flex',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    fontWeight: '600',
-                }">
-                    {{ isPutDown ? '可以放置' : '不可放置' }}
-                </div>
-            </template>
-        </DropContent>
+            <h3 class="mb16">预览</h3>
+            <div style="width: 100%; height: 100%">
+                <PreviewLayout :data="data" :row="12" :column="12" :gap="6" :skipEmpty="false" />
+            </div>
+        </div>
     </div>
 </template>
 
@@ -43,12 +54,14 @@ import GridTemplateVue from "@/components/grid/GridTemplate.vue"
 import { storeToRefs } from 'pinia';
 import { onMounted, onUpdated, ref, watchEffect } from 'vue';
 import DropContent from '@/components/grid/DropContent.vue';
+import PreviewLayout from '@/components/grid/PreviewLayout.vue';
 // import { useDraggable } from 'vue-draggable-plus';
 
 
 const dragStore = useDragStore();
 const { targetObj, containerList } = storeToRefs(dragStore);
-const data1 = ref([
+//初始化数据
+const data = ref([
     {
         id: 1111,
         key: 'demo-component',
@@ -69,7 +82,7 @@ const data1 = ref([
     },
 ]);
 
-const dropContentRef = ref<InstanceType<typeof GridTemplateVue>>();
+const dropContentRef = ref<InstanceType<typeof DropContent>>();
 const renderList = [{ id: '0', name: "请拖动插件" }];
 const isDefault = ref(true);
 const getPluginComponent = (type: string) => {
@@ -105,14 +118,15 @@ onUpdated(() => {
 .mediumOuter {
     width: 66vw;
     background-color: #8484847e;
+
 }
 
-/* .setDragaArea {
+.setDragaArea {
     border: 1px solid black;
     margin: 0 auto;
     width: 40vw;
-    height: 600px;
-} */
+    height: 500px;
+}
 
 /* .setDragaArea>div {
     width: 100%;

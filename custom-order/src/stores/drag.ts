@@ -26,41 +26,41 @@ export const useDragStore = defineStore('drag', () => {
   const dragData = new DragData<DragItemData>()
   const sourceObj = ref<HTMLElement>() //用于存放被拖拽的模板引用
   const targetObj = ref<HTMLElement>() //用于存放目标容器的模板引用
-  const pluginList = ref([
+  const pluginList = [
     {
       title: '轮播图',
-      list: [{ key: 'carousel-plugin', title: '10x12', column: 10, row: 12 }]
+      list: [{ key: 'CarouselPlugin', title: '10x12', column: 10, row: 12 }]
     },
     {
       title: '图片',
       list: [
-        { key: 'image-plugin', title: '1x1', column: 1, row: 1 },
-        { key: 'image-plugin', title: '2x2', column: 2, row: 2 },
-        { key: 'image-plugin', title: '3x3', column: 3, row: 3 },
-        { key: 'image-plugin', title: '4x4', column: 4, row: 4 }
+        { key: 'ImagePlugin', title: '1x1', column: 1, row: 1 },
+        { key: 'ImagePlugin', title: '2x2', column: 2, row: 2 },
+        { key: 'ImagePlugin', title: '3x3', column: 3, row: 3 },
+        { key: 'ImagePlugin', title: '4x4', column: 4, row: 4 }
       ]
     },
     {
       title: '按钮',
       list: [
-        { key: 'button-plugin', title: '1x1', column: 1, row: 1 },
-        { key: 'button-plugin', title: '1x2', column: 1, row: 2 },
-        { key: 'button-plugin', title: '1x3', column: 1, row: 3 },
-        { key: 'button-plugin', title: '1x4', column: 1, row: 4 }
+        { key: 'ButtonPlugin', title: '1x1', column: 1, row: 1 },
+        { key: 'ButtonPlugin', title: '1x2', column: 1, row: 2 },
+        { key: 'ButtonPlugin', title: '1x3', column: 1, row: 3 },
+        { key: 'ButtonPlugin', title: '1x4', column: 1, row: 4 }
       ]
     },
     {
       title: '容器',
       list: [
-        { key: 'wrapper-plugin', title: '10x2', column: 10, row: 2 },
-        { key: 'wrapper-plugin', title: '2x12', column: 2, row: 12 }
+        { key: 'WrapperPlugin', title: '10x2', column: 10, row: 2 },
+        { key: 'WrapperPlugin', title: '2x12', column: 2, row: 12 }
       ]
     },
     {
       title: '文本',
-      list: [{ key: 'wrapper-plugin', title: '10x1', column: 10, row: 1 }]
+      list: [{ key: 'TextPlugin', title: '10x1', column: 10, row: 1 }]
     }
-  ])
+  ]
   const containerList = ref<{ id: string; name: string }[]>([])
   const rowCount = ref<number>(10) //行数
   const columnCount = ref<number>(12) //列数

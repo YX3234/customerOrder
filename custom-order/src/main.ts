@@ -1,7 +1,7 @@
 // import './assets/main.css'
 import 'element-plus/dist/index.css'
 
-import { createApp } from 'vue'
+import { createApp, h, defineComponent } from 'vue'
 import { createPinia } from 'pinia'
 import ElementPlus from 'element-plus'
 
@@ -30,5 +30,32 @@ app
   .component('ImagePlugin', ImagePluginVue)
   .component('CarouselPlugin', CarouselPluginVue)
   .component('WrapperPlugin', WrapperPluginVue)
-
+  .component(
+    'demo-component',
+    defineComponent(
+      (props: { data: DragItemData }) => {
+        return () =>
+          h(
+            'div',
+            {
+              style: {
+                width: '100%',
+                height: '100%',
+                color: '#fff',
+                backgroundColor: '#707eb1',
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                fontSize: '26px',
+                fontWeight: '600'
+              }
+            },
+            `${props.data?.column}x${props.data?.row}`
+          )
+      },
+      {
+        props: ['data']
+      }
+    )
+  )
 app.mount('#app')

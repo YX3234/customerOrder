@@ -97,8 +97,8 @@ export const useBoxGrid = (list: Ref<DragItemData[]>, minColumn: number, minRow:
         const x: number[] = [],
           y: number[] = []
         val.forEach((item) => {
-          x.push(item.x + item.column)
-          y.push(item.y + item.row)
+          x.push(item.x + item?.column)
+          y.push(item.y + item?.row)
         })
         columnCount.value = Math.max(...x, minColumn, columnCount.value)
         rowCount.value = Math.max(...y, minRow, rowCount.value)

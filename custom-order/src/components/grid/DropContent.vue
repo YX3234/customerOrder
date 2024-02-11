@@ -3,9 +3,7 @@ import { computed, ref, reactive, watch } from 'vue';
 import { dragStore, useBoxSize, useBoxGrid } from './drag';
 import { booleanWithin, booleanIntersects, ceil } from './drag';
 import PreviewItem from './PreviewItem.vue';
-import Mask from './Mask.vue';
-
-// import MoveMask from './MoveMask.vue';
+import MoveMask from './MoveMask.vue';
 
 type CallbackFun = (
   e: DragItemData,
@@ -48,7 +46,7 @@ const list = computed({
 });
 
 const designerContentRef = ref<HTMLElement>();
-const { columnCount, rowCount } = useBoxGrid(list, props.column, props.row);
+const { columnCount, rowCount } = useBoxGrid(list, props?.column, props?.row);
 
 // gird 格子
 const boxSize = useBoxSize(
@@ -67,10 +65,10 @@ const current = reactive({
   x: <number>0, // 列
   y: <number>0, // 行
 });
-
+console.log("test", current)
 // 是否可以放置
 const isPutDown = computed(() => {
-  const currentXy: [number, number, number, number] = [
+  const currentXy = [
     current.x,
     current.y,
     current.x + current.column,
@@ -80,7 +78,7 @@ const isPutDown = computed(() => {
     booleanWithin([0, 0, columnCount.value, rowCount.value], currentXy) &&
     list.value.every(
       (item) =>
-        item.id === current.id ||
+        item.id === current?.id ||
         !booleanIntersects(
           [item.x, item.y, item.x + item.column, item.y + item.row],
           currentXy
@@ -91,21 +89,21 @@ const isPutDown = computed(() => {
 
 // 删除行
 const isDelRow = computed(() => {
-  const rows = Math.max(props?.row, rowCount.value - 1);
+  const rows = Math.max(props.row, rowCount.value - 1);
   return list.value.every((item) => item.y + item.row <= rows);
 });
 
 // 计算 x 坐标
-const getX = (num: number) => (num / (boxSize.value.width + props?.gap));
+const getX = (num) => parseInt(num / (boxSize.value.width + props.gap));
 // 计算 y 坐标
-const getY = (num: number) => (num / (boxSize.value.height + props?.gap));
+const getY = (num) => parseInt(num / (boxSize.value.height + props.gap));
 // 计算列数
-const getColumn = (num: number) => ceil(num / (boxSize.value.width + props?.gap));
+const getColumn = (num) => ceil(num / (boxSize.value.width + props.gap));
 // 计算行数
-const getRow = (num: number) => ceil(num / (boxSize.value.height + props?.gap));
+const getRow = (num) => ceil(num / (boxSize.value.height + props.gap));
 
 // 进入放置目标
-const onDragenter = (e: any) => {
+const onDragenter = (e) => {
   e.preventDefault();
   const dragData = dragStore.get(props.groupName);
   if (dragData) {
@@ -113,15 +111,16 @@ const onDragenter = (e: any) => {
     current.row = dragData.row;
     current.x = getX(e.offsetX) - getX(dragData?.offsetX ?? 0);
     current.y = getY(e.offsetY) - getY(dragData?.offsetY ?? 0);
-    current.id = dragData.id;
+    current.id = dragData?.id;
     current.show = true;
   }
 };
 
 // 在目标中移动
-const onDragover = (e: any) => {
+const onDragover = (e) => {
   e.preventDefault();
   const dragData = dragStore.get(props.groupName);
+  console.log(props.groupName);
   if (dragData) {
     current.x = getX(e.offsetX) - getX(dragData?.offsetX ?? 0);
     current.y = getY(e.offsetY) - getY(dragData?.offsetY ?? 0);
@@ -129,14 +128,14 @@ const onDragover = (e: any) => {
 };
 
 // 离开目标
-const onDragleave = (e: any) => {
+const onDragleave = (e) => {
   e.preventDefault();
   current.show = false;
   current.id = undefined;
 };
 
 // 放置在目标上
-const onDrop = async (e: any) => {
+const onDrop = async (e) => {
   e.preventDefault();
   current.show = false;
   const dragData = dragStore.get(props.groupName); // JSON.parse(e.dataTransfer.getData('application/json'))
@@ -166,7 +165,7 @@ const onDrop = async (e: any) => {
 };
 
 // 删除元素
-const onRemovePreviewItem = (el: any) => {
+const onRemovePreviewItem = (el) => {
   if (props.beforeRemove(el, list.value)) {
     list.value = list.value.filter((item) => item !== el);
   }
@@ -186,7 +185,7 @@ const onResizeStart = () => {
 };
 
 // 调正大小时
-const onResizeing = (e: any) => {
+const onResizeing = (e) => {
   const dragData = dragStore.get(props.groupName);
   current.column = getColumn(e.width);
   current.row = getRow(e.height);
@@ -237,10 +236,10 @@ defineExpose({
         @resize-end="onResizeEnd">
         <slot name="preview-item" :data="item" :moving="current.show && item.id !== current.id"></slot>
       </PreviewItem>
-      <Mask v-if="mask" v-show="current?.show" v-bind="current" :width="boxSize?.width" :height="boxSize?.height"
+      <MoveMask v-if="mask" v-show="current.show" v-bind="current" :width="boxSize.width" :height="boxSize.height"
         :gap="gap" :is-put-down="isPutDown">
         <slot name="move-mask" v-bind="current" :is-put-down="isPutDown"></slot>
-      </Mask>
+      </MoveMask>
     </div>
   </div>
 </template>

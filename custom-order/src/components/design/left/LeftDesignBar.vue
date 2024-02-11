@@ -16,7 +16,7 @@ const test = ref('1')
             <el-menu-item index="1">大纲</el-menu-item>
         </el-menu>
         <div class="content">
-            <Plugins v-show="selectedIndex === '0'"></Plugins>
+            <Plugins v-show="selectedIndex === '0'" group-name="drag-demo"></Plugins>
             <Outline v-show="selectedIndex === '1'"></Outline>
         </div>
     </div>

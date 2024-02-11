@@ -49,17 +49,8 @@ const getPreviewStyle = ({ x, y, row, column }: DragItemData) => {
 <template>
   <div ref="previewLayoutRef" class="preview-layout">
     <div class="preview-layout__container">
-      <div
-        v-for="(item, i) in data"
-        class="preview-layout__item"
-        :key="`${item.key}${i}`"
-        :style="getPreviewStyle(item)"
-      >
-        <component
-          style="width: 100%; height: 100%"
-          :is="item.key"
-          :data="item"
-        />
+      <div v-for="(item, i) in data" class="preview-layout__item" :key="`${item.key}${i}`" :style="getPreviewStyle(item)">
+        <component style="width: 100%; height: 100%" :is="item.key" :data="item" />
       </div>
     </div>
   </div>
@@ -73,16 +64,12 @@ const getPreviewStyle = ({ x, y, row, column }: DragItemData) => {
 
   &__container {
     display: grid;
-    row-gap: v-bind("gap+'px'");
-    column-gap: v-bind("gap+'px'");
-    grid-template-columns: repeat(
-      v-bind('columnCount'),
-      v-bind("boxSize.width+'px'")
-    );
-    grid-template-rows: repeat(
-      v-bind('rowCount'),
-      v-bind("boxSize.height+'px'")
-    );
+    row-gap: v-bind("gap + 'px'");
+    column-gap: v-bind("gap + 'px'");
+    grid-template-columns: repeat(v-bind('columnCount'),
+        v-bind("boxSize.width + 'px'"));
+    grid-template-rows: repeat(v-bind('rowCount'),
+        v-bind("boxSize.height + 'px'"));
   }
 
   &__item {
