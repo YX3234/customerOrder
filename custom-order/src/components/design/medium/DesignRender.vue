@@ -124,7 +124,7 @@ onUpdated(() => {
 .setDragaArea {
     border: 1px solid black;
     margin: 0 auto;
-    width: 40vw;
+    width: 375px;
     height: 500px;
 }
 

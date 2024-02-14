@@ -1,9 +1,10 @@
 <script setup lang="ts">
-import { computed, ref, reactive, watch } from 'vue';
+import { computed, ref, reactive, watch, onMounted } from 'vue';
 import { dragStore, useBoxSize, useBoxGrid } from './drag';
 import { booleanWithin, booleanIntersects, ceil } from './drag';
 import PreviewItem from './PreviewItem.vue';
 import MoveMask from './MoveMask.vue';
+import { useCanvas } from '@/stores/canvas';
 
 type CallbackFun = (
   e: DragItemData,
@@ -40,6 +41,9 @@ const props = withDefaults(
   }
 );
 
+const canvasStore = useCanvas();
+const { setCanvas } = canvasStore
+const canvasRef = ref<HTMLCanvasElement>();
 const list = computed({
   get: () => props.modelValue,
   set: (val) => emits('update:modelValue', val),
@@ -211,6 +215,11 @@ const onResizeEnd = async () => {
   }
 };
 
+onMounted(() => {
+  if (canvasRef.value) {
+    setCanvas(canvasRef.value);
+  }
+})
 defineExpose({
   // 添加行
   addRow: () => (rowCount.value = rowCount.value + 1),
@@ -229,6 +238,7 @@ defineExpose({
       </template>
     </div>
     <div class="drop-content__preview">
+      <canvas ref="canvasRef" style="opacity: 0.2;"></canvas>
       <PreviewItem v-for="item in list" :key="item.id" :data="item" :group-name="groupName" :style="{
         pointerEvents:
           current.show && item.id !== current.id ? 'none' : 'all',

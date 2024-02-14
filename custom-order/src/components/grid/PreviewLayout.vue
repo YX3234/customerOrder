@@ -1,6 +1,7 @@
 <script setup lang="ts">
-import { ref, computed } from 'vue';
+import { ref, computed, onMounted } from 'vue';
 import { useBoxSize, useBoxGrid } from './drag';
+import { useCanvas } from '@/stores/canvas';
 
 const props = withDefaults(
   defineProps<{
@@ -23,7 +24,11 @@ const props = withDefaults(
   }
 );
 
+const canvasStore = useCanvas();
+const { setCanvas } = canvasStore;
+
 const previewLayoutRef = ref<HTMLElement>();
+const canvasRef = ref<HTMLCanvasElement>()
 
 const { columnCount, rowCount } = useBoxGrid(
   computed(() => props.data),
@@ -44,11 +49,17 @@ const getPreviewStyle = ({ x, y, row, column }: DragItemData) => {
     'grid-area': `${y + 1} / ${x + 1} / ${y + row + 1}/ ${x + column + 1}`,
   };
 };
+onMounted(() => {
+  if (canvasRef.value) {
+    setCanvas(canvasRef.value);
+  }
+})
 </script>
 
 <template>
   <div ref="previewLayoutRef" class="preview-layout">
     <div class="preview-layout__container">
+      <canvas ref="canvasRef"></canvas>
       <div v-for="(item, i) in data" class="preview-layout__item" :key="`${item.key}${i}`" :style="getPreviewStyle(item)">
         <component style="width: 100%; height: 100%" :is="item.key" :data="item" />
       </div>

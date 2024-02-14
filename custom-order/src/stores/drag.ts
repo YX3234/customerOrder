@@ -29,14 +29,14 @@ export const useDragStore = defineStore('drag', () => {
   const pluginList = [
     {
       title: '轮播图',
-      list: [{ key: 'CarouselPlugin', title: '10x12', column: 10, row: 12 }]
+      list: [{ key: 'CarouselPlugin', title: '10x12', column: 12, row: 3 }]
     },
     {
       title: '图片',
       list: [
-        { key: 'ImagePlugin', title: '1x1', column: 1, row: 1 },
-        { key: 'ImagePlugin', title: '2x2', column: 2, row: 2 },
-        { key: 'ImagePlugin', title: '3x3', column: 3, row: 3 },
+        // { key: 'ImagePlugin', title: '1x1', column: 1, row: 1 },
+        // { key: 'ImagePlugin', title: '2x2', column: 2, row: 2 },
+        // { key: 'ImagePlugin', title: '3x3', column: 3, row: 3 },
         { key: 'ImagePlugin', title: '4x4', column: 4, row: 4 }
       ]
     },
@@ -44,7 +44,7 @@ export const useDragStore = defineStore('drag', () => {
       title: '按钮',
       list: [
         { key: 'ButtonPlugin', title: '1x1', column: 1, row: 1 },
-        { key: 'ButtonPlugin', title: '1x2', column: 1, row: 2 },
+        { key: 'ButtonPlugin', title: '2x1', column: 2, row: 1 },
         { key: 'ButtonPlugin', title: '1x3', column: 1, row: 3 },
         { key: 'ButtonPlugin', title: '1x4', column: 1, row: 4 }
       ]
@@ -52,7 +52,7 @@ export const useDragStore = defineStore('drag', () => {
     {
       title: '容器',
       list: [
-        { key: 'WrapperPlugin', title: '10x2', column: 10, row: 2 },
+        { key: 'WrapperPlugin', title: '10x1', column: 10, row: 1 },
         { key: 'WrapperPlugin', title: '2x12', column: 2, row: 12 }
       ]
     },
@@ -88,6 +88,7 @@ export const useDragStore = defineStore('drag', () => {
 
   const dropContentRef = ref<InstanceType<typeof GridTemplateVue>>()
 
+  
   /**
    * 判断是否在当前四边形内
    * @param {*} p1 父容器
