@@ -136,6 +136,7 @@ const unset = (target) => {
     top: 4px;
     height: 20px;
     width: 20px;
+    z-index: 999;
 
     &:after,
     &:before {

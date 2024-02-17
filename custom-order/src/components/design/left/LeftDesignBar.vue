@@ -26,10 +26,15 @@ const test = ref('1')
     display: flex;
     /* width: 15vw; */
     background-color: aqua;
+    position: relative;
+    z-index: 9999;
+
 }
 
 .content {
     flex-grow: 1;
+    height: 100vh;
+    overflow: scroll;
 }
 </style>
         

@@ -25,6 +25,8 @@ const props = withDefaults(
     gap?: number;
     /** 是否显示拖拽预占位层 */
     mask?: boolean;
+    /** 设置内容区z-index的值 */
+    zIndex?: number;
     /** 放置前的钩子 如果返回 false 则取消放置 */
     beforeDrop?: CallbackFun;
     /** 删除前的钩子 如果返回 false 则取消删除 */
@@ -36,6 +38,7 @@ const props = withDefaults(
     row: 0,
     gap: 0,
     mask: true,
+    zIndex: 2,
     beforeDrop: () => true,
     beforeRemove: () => true,
   }
@@ -143,6 +146,7 @@ const onDrop = async (e) => {
   e.preventDefault();
   current.show = false;
   const dragData = dragStore.get(props.groupName); // JSON.parse(e.dataTransfer.getData('application/json'))
+  // console.log("bug1", dragData);
   if (dragData &&
     isPutDown.value &&
     (await props.beforeDrop(
@@ -170,9 +174,11 @@ const onDrop = async (e) => {
 
 // 删除元素
 const onRemovePreviewItem = (el) => {
+
   if (props.beforeRemove(el, list.value)) {
     list.value = list.value.filter((item) => item !== el);
   }
+  console.log("bug1", list.value);
 };
 
 // 调整大小开始
@@ -215,11 +221,13 @@ const onResizeEnd = async () => {
   }
 };
 
-onMounted(() => {
-  if (canvasRef.value) {
-    setCanvas(canvasRef.value);
-  }
-})
+// onMounted(() => {
+//   if (canvasRef.value) {
+//     setCanvas(canvasRef.value);
+//   }
+// })
+
+//向外暴露方法
 defineExpose({
   // 添加行
   addRow: () => (rowCount.value = rowCount.value + 1),
@@ -238,7 +246,7 @@ defineExpose({
       </template>
     </div>
     <div class="drop-content__preview">
-      <canvas ref="canvasRef" style="opacity: 0.2;"></canvas>
+      <!-- <canvas ref="canvasRef" style="opacity: 0.2;"></canvas> -->
       <PreviewItem v-for="item in list" :key="item.id" :data="item" :group-name="groupName" :style="{
         pointerEvents:
           current.show && item.id !== current.id ? 'none' : 'all',
@@ -256,6 +264,7 @@ defineExpose({
 <style lang="scss" scoped>
 .drop-content {
   position: relative;
+  z-index: v-bind("+zIndex");
   width: 100%;
   height: 100%;
   border-radius: 6px;

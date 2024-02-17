@@ -43,18 +43,17 @@ export const useDragStore = defineStore('drag', () => {
     {
       title: '按钮',
       list: [
-        { key: 'ButtonPlugin', title: '1x1', column: 1, row: 1 },
         { key: 'ButtonPlugin', title: '2x1', column: 2, row: 1 },
-        { key: 'ButtonPlugin', title: '1x3', column: 1, row: 3 },
-        { key: 'ButtonPlugin', title: '1x4', column: 1, row: 4 }
+        { key: 'ButtonPlugin', title: '1x3', column: 1, row: 3 }
       ]
     },
     {
-      title: '容器',
-      list: [
-        { key: 'WrapperPlugin', title: '10x1', column: 10, row: 1 },
-        { key: 'WrapperPlugin', title: '2x12', column: 2, row: 12 }
-      ]
+      title: '拖拽放置模块',
+      list: [{ key: 'DragModel', title: '6x4', column: 6, row: 4 }]
+    },
+    {
+      title: '商品品类导航',
+      list: [{ key: 'WrapperPlugin', title: '2x12', column: 2, row: 12 }]
     },
     {
       title: '文本',
@@ -65,7 +64,7 @@ export const useDragStore = defineStore('drag', () => {
   const rowCount = ref<number>(10) //行数
   const columnCount = ref<number>(12) //列数
   const gap = ref<number>(5) //间隙大小
-  const data = ref([
+  const Modeldata = ref([
     {
       id: 1111,
       key: 'demo-component',
@@ -88,7 +87,6 @@ export const useDragStore = defineStore('drag', () => {
 
   const dropContentRef = ref<InstanceType<typeof GridTemplateVue>>()
 
-  
   /**
    * 判断是否在当前四边形内
    * @param {*} p1 父容器
@@ -241,6 +239,7 @@ export const useDragStore = defineStore('drag', () => {
     targetObj,
     pluginList,
     containerList,
+    Modeldata,
     rowCount,
     columnCount,
     gap,

@@ -1,7 +1,7 @@
 {
   "extends": "@vue/tsconfig/tsconfig.dom.json",
   "include": ["env.d.ts", "src/**/*", "src/**/*.vue","src/components/**/*.vue"],
-  "files": ["src/views/LayoutView.vue","src/views/DesignView.vue",],
+  "files": ["src/views/LayoutView.vue","src/views/DesignView.vue","src/components/plugin/DragModel.vue"],
   "exclude": ["src/**/__tests__/*"],
   "compilerOptions": {
     "composite": true,

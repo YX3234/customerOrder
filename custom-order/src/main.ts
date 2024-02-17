@@ -13,6 +13,7 @@ import ButtonPluginVue from './components/plugin/ButtonPlugin.vue'
 import ImagePluginVue from './components/plugin/ImagePlugin.vue'
 import CarouselPluginVue from './components/plugin/CarouselPlugin.vue'
 import WrapperPluginVue from './components/plugin/WrapperPlugin.vue'
+import DragModelVue from './components/plugin/DragModel.vue'
 
 const app = createApp(App)
 
@@ -30,6 +31,7 @@ app
   .component('ImagePlugin', ImagePluginVue)
   .component('CarouselPlugin', CarouselPluginVue)
   .component('WrapperPlugin', WrapperPluginVue)
+  .component('DragModel', DragModelVue)
   .component(
     'demo-component',
     defineComponent(

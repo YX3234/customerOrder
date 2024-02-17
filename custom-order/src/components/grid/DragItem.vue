@@ -32,6 +32,8 @@ const onDragend = () => dragStore.remove(props.groupName);
   height: 88px;
   display: flex;
   flex-direction: column;
+  position: relative;
+  z-index: 9999;
 
   &__el {
     width: 100px;
