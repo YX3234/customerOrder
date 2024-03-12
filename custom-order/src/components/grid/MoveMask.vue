@@ -54,13 +54,10 @@ const maskStyle = computed(() =>
 <template>
   <div class="move-mask" :style="maskStyle">
     <slot>
-      <div
-        class="move-mask__default"
-        :style="{
-          backgroundColor: props.isPutDown ? '#2867f91c' : '#ff00001c',
-          borderColor: props.isPutDown ? '#2c68f3' : '#ff000079',
-        }"
-      ></div>
+      <div class="move-mask__default" :style="{
+        backgroundColor: props.isPutDown ? '#2867f91c' : '#ff00001c',
+        borderColor: props.isPutDown ? '#2c68f3' : '#ff000079',
+      }"></div>
     </slot>
   </div>
 </template>
@@ -76,7 +73,7 @@ const maskStyle = computed(() =>
 
   &__default {
     height: 100%;
-    border-radius: 6px;
+    // border-radius: 6px;
     box-sizing: border-box;
     border: 2px solid #2867f979;
     background-color: #2867f91c;

@@ -13,10 +13,21 @@
                 
             </div> -->
         <div class="setDragaArea" ref="targetObj">
-            <DropContent v-model="data" ref="dropContentRef" group-name="drag-demo" :row="12" :column="12" :gap="6">
+            <DropContent v-model="Modeldata" ref="dropContentRef" group-name="drag-demo" :row="12" :column="12" :gap="2">
                 <template #preview-item="{ data }">
                     <div style="background-color: sandybrown;height: 100%;border-radius: 6px;">
-                        <component :is="data?.key" :disabled="true" :data="data"></component>
+                        <!-- <component :is="data?.key" :disabled="true" :data="data"></component> -->
+                        <div :style="{
+                            width: '100%',
+                            height: '100%',
+                            color: '#fff',
+                            // backgroundColor: '#707eb1',
+                            display: 'flex',
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                            fontSize: '30%',
+                            fontWeight: '600'
+                        }">{{ (data?.name || '默认') + data?.column + "x" + data?.row }}</div>
                     </div>
                 </template>
                 <template #move-mask="{ isPutDown }">
@@ -42,7 +53,7 @@
             </div>
             <h3 class="mb16">预览</h3>
             <div style="width: 100%; height: 100%">
-                <PreviewLayout :data="data" :row="12" :column="12" :gap="6" :skipEmpty="false" />
+                <PreviewLayout :data="Modeldata" :row="12" :column="12" :gap="6" :skipEmpty="false" />
             </div>
         </div>
     </div>
@@ -59,44 +70,23 @@ import PreviewLayout from '@/components/grid/PreviewLayout.vue';
 
 
 const dragStore = useDragStore();
-const { targetObj, containerList } = storeToRefs(dragStore);
-//初始化数据
-const data = ref([
-    {
-        id: 1111,
-        key: 'demo-component',
-        title: '组件标题',
-        column: 1,
-        row: 1,
-        x: 1,
-        y: 1,
-    },
-    {
-        id: 2222,
-        key: 'demo-component',
-        title: '组件标题',
-        column: 1,
-        row: 1,
-        x: 2,
-        y: 3,
-    },
-]);
+const { targetObj, containerList, Modeldata } = storeToRefs(dragStore);
+
 
 const dropContentRef = ref<InstanceType<typeof DropContent>>();
 const renderList = [{ id: '0', name: "请拖动插件" }];
 const isDefault = ref(true);
-const getPluginComponent = (type: string) => {
-    if (isDefault.value) isDefault.value = !containerList.value.length;
-    switch (type) {
-        case "文本": return "TextPlugin";
-        case "按钮": return "ButtonPlugin";
-        case "图片": return "ImagePlugin";
-        case "轮播图": return "CarouselPlugin";
-        case "容器": return "WrapperPlugin";
-        default: return "undefined";
-    }
-}
-console.log(getPluginComponent("文本"))
+// const getPluginComponent = (type: string) => {
+//     if (isDefault.value) isDefault.value = !containerList.value.length;
+//     switch (type) {
+//         case "文本": return "TextPlugin";
+//         case "按钮": return "ButtonPlugin";
+//         case "图片": return "ImagePlugin";
+//         case "轮播图": return "CarouselPlugin";
+//         case "容器": return "WrapperPlugin";
+//         default: return "undefined";
+//     }
+// }
 let compName = 'undefined';    //不能是响应式数据，在执行模板中的IIFE时会频繁触发刷新
 // useDraggable(targetObj, containerList, {
 //     animation: 150,

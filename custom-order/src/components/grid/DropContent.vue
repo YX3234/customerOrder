@@ -5,7 +5,6 @@ import { booleanWithin, booleanIntersects, ceil } from './drag';
 import PreviewItem from './PreviewItem.vue';
 import MoveMask from './MoveMask.vue';
 import { useCanvas } from '@/stores/canvas';
-
 type CallbackFun = (
   e: DragItemData,
   list: DragItemData[]
@@ -127,7 +126,6 @@ const onDragenter = (e) => {
 const onDragover = (e) => {
   e.preventDefault();
   const dragData = dragStore.get(props.groupName);
-  console.log(props.groupName);
   if (dragData) {
     current.x = getX(e.offsetX) - getX(dragData?.offsetX ?? 0);
     current.y = getY(e.offsetY) - getY(dragData?.offsetY ?? 0);
@@ -178,7 +176,7 @@ const onRemovePreviewItem = (el) => {
   if (props.beforeRemove(el, list.value)) {
     list.value = list.value.filter((item) => item !== el);
   }
-  console.log("bug1", list.value);
+  // console.log("bug1", list.value);
 };
 
 // 调整大小开始
@@ -267,7 +265,7 @@ defineExpose({
   z-index: v-bind("+zIndex");
   width: 100%;
   height: 100%;
-  border-radius: 6px;
+  // border-radius: 6px;
   overflow: hidden;
   overflow-y: auto;
 
@@ -283,7 +281,7 @@ defineExpose({
 
     .bg-column {
       background-color: #fff;
-      border-radius: 6px;
+      // border-radius: 6px;
       pointer-events: none;
     }
   }

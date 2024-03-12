@@ -25,6 +25,34 @@ for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
   app.component(key, component)
 }
 //注册插件
+const createPluginHook = (type?: string) => {
+  return defineComponent(
+    (props: { data: DragItemData }) => {
+      console.log('testData', props.data)
+      return () =>
+        h(
+          'div',
+          {
+            style: {
+              width: '100%',
+              height: '100%',
+              color: '#fff',
+              backgroundColor: '#707eb1',
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              fontSize: '26px',
+              fontWeight: '600'
+            }
+          },
+          `${(type || '默认') + props.data?.column}x${props.data?.row}`
+        )
+    },
+    {
+      props: ['data']
+    }
+  )
+}
 app
   .component('TextPlugin', TextPluginVue)
   .component('ButtonPlugin', ButtonPluginVue)
@@ -32,32 +60,5 @@ app
   .component('CarouselPlugin', CarouselPluginVue)
   .component('WrapperPlugin', WrapperPluginVue)
   .component('DragModel', DragModelVue)
-  .component(
-    'demo-component',
-    defineComponent(
-      (props: { data: DragItemData }) => {
-        return () =>
-          h(
-            'div',
-            {
-              style: {
-                width: '100%',
-                height: '100%',
-                color: '#fff',
-                backgroundColor: '#707eb1',
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center',
-                fontSize: '26px',
-                fontWeight: '600'
-              }
-            },
-            `${props.data?.column}x${props.data?.row}`
-          )
-      },
-      {
-        props: ['data']
-      }
-    )
-  )
+  .component('demo-component', createPluginHook())
 app.mount('#app')

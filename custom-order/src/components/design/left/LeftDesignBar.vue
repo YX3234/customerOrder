@@ -25,7 +25,6 @@ const test = ref('1')
 .outer {
     display: flex;
     /* width: 15vw; */
-    background-color: aqua;
     position: relative;
     z-index: 9999;
 

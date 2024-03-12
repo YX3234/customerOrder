@@ -57,12 +57,12 @@ const imageList = ref<UploadFile[]>([])
 //     imageList.value = files;
 //     console.log(imageList.value);
 // }
-console.log(imageList);
+// console.log(imageList);
 const handleRemove: UploadProps['onRemove'] = (file, uploadFiles) => {
-    console.log(file, uploadFiles)
+    // console.log(file, uploadFiles)
 }
 const handlePreview: UploadProps['onPreview'] = (uploadFile) => {
-    console.log(uploadFile)
+    // console.log(uploadFile)
 }
 
 const handleExceed: UploadProps['onExceed'] = (files, uploadFiles) => {

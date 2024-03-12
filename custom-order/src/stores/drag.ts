@@ -29,7 +29,7 @@ export const useDragStore = defineStore('drag', () => {
   const pluginList = [
     {
       title: '轮播图',
-      list: [{ key: 'CarouselPlugin', title: '10x12', column: 12, row: 3 }]
+      list: [{ key: 'CarouselPlugin', title: '10x12', column: 12, row: 3, name: '轮播图' }]
     },
     {
       title: '图片',
@@ -37,27 +37,27 @@ export const useDragStore = defineStore('drag', () => {
         // { key: 'ImagePlugin', title: '1x1', column: 1, row: 1 },
         // { key: 'ImagePlugin', title: '2x2', column: 2, row: 2 },
         // { key: 'ImagePlugin', title: '3x3', column: 3, row: 3 },
-        { key: 'ImagePlugin', title: '4x4', column: 4, row: 4 }
+        { key: 'ImagePlugin', title: '4x4', column: 4, row: 4, name: '图片' }
       ]
     },
     {
       title: '按钮',
       list: [
-        { key: 'ButtonPlugin', title: '2x1', column: 2, row: 1 },
-        { key: 'ButtonPlugin', title: '1x3', column: 1, row: 3 }
+        { key: 'ButtonPlugin', title: '2x1', column: 2, row: 1, name: '按钮' },
+        { key: 'ButtonPlugin', title: '1x3', column: 1, row: 3, name: '按钮' }
       ]
     },
     {
       title: '拖拽放置模块',
-      list: [{ key: 'DragModel', title: '6x4', column: 6, row: 4 }]
+      list: [{ key: 'DragModel', title: '6x4', column: 6, row: 4, name: '拖拽放置模块' }]
     },
     {
       title: '商品品类导航',
-      list: [{ key: 'WrapperPlugin', title: '2x12', column: 2, row: 12 }]
+      list: [{ key: 'WrapperPlugin', title: '2x12', column: 2, row: 12, name: '商品品类导航' }]
     },
     {
       title: '文本',
-      list: [{ key: 'TextPlugin', title: '10x1', column: 10, row: 1 }]
+      list: [{ key: 'TextPlugin', title: '10x1', column: 10, row: 1, name: '文本' }]
     }
   ]
   const containerList = ref<{ id: string; name: string }[]>([])
@@ -65,24 +65,24 @@ export const useDragStore = defineStore('drag', () => {
   const columnCount = ref<number>(12) //列数
   const gap = ref<number>(5) //间隙大小
   const Modeldata = ref([
-    {
-      id: 1111,
-      key: 'demo-component',
-      title: '组件标题',
-      column: 1,
-      row: 1,
-      x: 1,
-      y: 1
-    },
-    {
-      id: 2222,
-      key: 'demo-component',
-      title: '组件标题',
-      column: 1,
-      row: 1,
-      x: 2,
-      y: 3
-    }
+    // {
+    //   id: 1111,
+    //   key: 'demo-component',
+    //   title: '组件标题',
+    //   column: 1,
+    //   row: 1,
+    //   x: 1,
+    //   y: 1
+    // },
+    // {
+    //   id: 2222,
+    //   key: 'demo-component',
+    //   title: '组件标题',
+    //   column: 1,
+    //   row: 1,
+    //   x: 2,
+    //   y: 3
+    // }
   ])
 
   const dropContentRef = ref<InstanceType<typeof GridTemplateVue>>()
