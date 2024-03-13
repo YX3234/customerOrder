@@ -27,10 +27,10 @@ export const useDragStore = defineStore('drag', () => {
   const sourceObj = ref<HTMLElement>() //用于存放被拖拽的模板引用
   const targetObj = ref<HTMLElement>() //用于存放目标容器的模板引用
   const pluginList = [
-    {
-      title: '轮播图',
-      list: [{ key: 'CarouselPlugin', title: '10x12', column: 12, row: 3, name: '轮播图' }]
-    },
+    // {
+    //   title: '轮播图',
+    //   list: [{ key: 'CarouselPlugin', title: '10x12', column: 12, row: 3, name: '轮播图' }]
+    // },
     {
       title: '图片',
       list: [
@@ -47,14 +47,14 @@ export const useDragStore = defineStore('drag', () => {
         { key: 'ButtonPlugin', title: '1x3', column: 1, row: 3, name: '按钮' }
       ]
     },
-    {
-      title: '拖拽放置模块',
-      list: [{ key: 'DragModel', title: '6x4', column: 6, row: 4, name: '拖拽放置模块' }]
-    },
-    {
-      title: '商品品类导航',
-      list: [{ key: 'WrapperPlugin', title: '2x12', column: 2, row: 12, name: '商品品类导航' }]
-    },
+    // {
+    //   title: '拖拽放置模块',
+    //   list: [{ key: 'DragModel', title: '6x4', column: 6, row: 4, name: '拖拽放置模块' }]
+    // },
+    // {
+    //   title: '商品品类导航',
+    //   list: [{ key: 'WrapperPlugin', title: '2x12', column: 2, row: 12, name: '商品品类导航' }]
+    // },
     {
       title: '文本',
       list: [{ key: 'TextPlugin', title: '10x1', column: 10, row: 1, name: '文本' }]

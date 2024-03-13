@@ -2,35 +2,35 @@
 import { useMaterialStore } from '@/stores/material';
 import { toRefs } from '@vueuse/core';
 import { storeToRefs } from 'pinia';
-import { onMounted, ref } from 'vue';
+import { onBeforeMount, onMounted, ref, watchEffect } from 'vue';
 
+const { data } = defineProps(['data'])
 const material = useMaterialStore();
-const { materialList, createInstance, } = material;
-let { currentMaterialIndex } = storeToRefs(material);
+const { createInstance } = material;
+let { currentMaterialIndex, materialList } = storeToRefs(material);
 
-let cMaterial: any = null;
-let PcurrentMaterialIndex = 0;
-onMounted(() => {
-    cMaterial = createInstance("text", { content: "文本1" })
-    PcurrentMaterialIndex = materialList.length;
-    materialList?.push(cMaterial);
-    // currentMaterialIndex.value = PcurrentMaterialIndex;
-    console.log("1", currentMaterialIndex)
+
+let index: number;
+onBeforeMount(() => {
+    currentMaterialIndex.value = materialList.value.length;
+    materialList.value?.push(createInstance(data, { index: materialList.value.length, content: "文本1" }));
+    if (typeof index === "undefined") index = materialList.value[currentMaterialIndex.value].props?.index;
+
 })
 
 const handleClick = () => {
-    // currentMaterialIndex.value = PcurrentMaterialIndex;
-    // console.log("click", currentMaterialIndex?.value)
+    currentMaterialIndex.value = materialList.value[index]?.props?.index;
+    console.log("click", materialList.value[index]?.props)
 }
-
 
 </script>
 
 <template>
-    <div class="textWrapper" @click="handleClick">{{ materialList[PcurrentMaterialIndex]?.props?.content }}</div>
+    <div class="textWrapper" @click="handleClick">{{ materialList[index].props?.content || "error" }}
+    </div>
 </template>
 <style scoped>
-/* .textWrapper{
-
-} */
+.textWrapper {
+    word-wrap: break-word;
+}
 </style>

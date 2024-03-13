@@ -71,7 +71,7 @@ import PreviewLayout from '@/components/grid/PreviewLayout.vue';
 
 const dragStore = useDragStore();
 const { targetObj, containerList, Modeldata } = storeToRefs(dragStore);
-
+console.log("testData", Modeldata)
 
 const dropContentRef = ref<InstanceType<typeof DropContent>>();
 const renderList = [{ id: '0', name: "请拖动插件" }];

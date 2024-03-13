@@ -1,18 +1,20 @@
 <template>
-    <div>
-        <el-image v-show="true" style="width: 100%; height: 100%" :src="'public/KINO2560x1440.jpg'" :fit="'fill'" />
+    <div class="imageWrapper" @click="handleClick">
+        <!-- <el-image v-show="true" style="width: 100%; height: 100%" :src="'public/KINO2560x1440.jpg'" :fit="'fill'" />
         <div v-show="false">
             <el-upload v-model:file-list="imageList" class="upload-demo" action="#" :on-preview="handlePreview"
                 :on-remove="handleRemove" :before-remove="beforeRemove" :limit="1" :on-exceed="handleExceed"
                 auto-upload="false">
                 <el-button type="primary">Click to upload</el-button>
-                <!-- <template #tip>
+                 <template #tip>
                 <div class="el-upload__tip">
                     jpg/png files with a size less than 500KB.
                 </div>
-            </template> -->
+            </template> 
             </el-upload>
-        </div>
+        </div> -->
+        <img :src="materialList[index]?.props?.url || '../../../public/KINO2560x1440.jpg'"
+            :alt="materialList[index]?.props?.alt || '默认描述'" width="100%" height="100%" />
     </div>
     <!-- <el-upload action="#" list-type="picture-card" :auto-upload="false">
             <el-icon>
@@ -47,38 +49,25 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
-import { ElMessage, ElMessageBox, type UploadFile, type UploadProps } from 'element-plus'
-// import * from 'public/KINO2560x1440.jpg'
+import { useMaterialStore } from '@/stores/material';
+import { storeToRefs } from 'pinia';
+import { onBeforeMount, ref, watchEffect } from 'vue';
 
-const imageList = ref<UploadFile[]>([])
+const { data } = defineProps(['data'])
+const material = useMaterialStore();
+const { createInstance } = material;
+let { currentMaterialIndex, materialList } = storeToRefs(material);
+let index: number;
 
-// const handleChange: UploadProps['onChange'] = (file, files) => {
-//     imageList.value = files;
-//     console.log(imageList.value);
-// }
-// console.log(imageList);
-const handleRemove: UploadProps['onRemove'] = (file, uploadFiles) => {
-    // console.log(file, uploadFiles)
-}
-const handlePreview: UploadProps['onPreview'] = (uploadFile) => {
-    // console.log(uploadFile)
-}
+onBeforeMount(() => {
+    currentMaterialIndex.value = materialList.value.length;
+    materialList.value?.push(createInstance(data, { index: materialList.value.length, url: '', alt: '测试' }));
+    if (typeof index === "undefined") index = materialList.value[currentMaterialIndex.value].props?.index;
 
-const handleExceed: UploadProps['onExceed'] = (files, uploadFiles) => {
-    ElMessage.warning(
-        `The limit is 1, you selected ${files.length} files this time, add up to ${files.length + uploadFiles.length
-        } totally`
-    )
-}
-
-const beforeRemove: UploadProps['beforeRemove'] = (uploadFile, uploadFiles) => {
-    return ElMessageBox.confirm(
-        `Cancel the transfer of ${uploadFile.name} ?`
-    ).then(
-        () => true,
-        () => false
-    )
+})
+const handleClick = () => {
+    currentMaterialIndex.value = materialList.value[index]?.props?.index;
+    console.log("click", materialList.value[index]?.props)
 }
 
 </script>
@@ -88,6 +77,7 @@ const beforeRemove: UploadProps['beforeRemove'] = (uploadFile, uploadFiles) => {
     overflow: hidden;
     width: 100%;
     height: 100%;
+    background-color: aquamarine;
 
     & ul {
 
@@ -95,12 +85,13 @@ const beforeRemove: UploadProps['beforeRemove'] = (uploadFile, uploadFiles) => {
             display: none;
         }
 
-        // & :first-child {
-        //     display: block;
-        //     width: 100px;
-        //     height: 100px;
-        // }
+        & :first-child {
+            display: block;
+            width: 100px;
+            height: 100px;
+        }
     }
+
 }
 
 .disabled {

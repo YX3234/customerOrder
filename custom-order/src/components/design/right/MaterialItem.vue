@@ -2,13 +2,12 @@
     <div class="item">
         <!-- 根据物料类型展示不同的属性输入框和交互操作 -->
         <template v-if="material?.type === 'text'">
-            <label for="content">文本内容:</label>
-            <input placeholder="请输入" v-model="inputValue" id="content">
-            <button @click="material?.updateContent(inputValue)">更新内容</button>
+            <TextForm :propsValue="propsValue" :material="material"></TextForm>
         </template>
 
         <template v-else-if="material?.type === 'image'">
             <!-- 图片特定的属性输入框和交互操作 -->
+            <ImageForm :propsValue="propsValue" :material="material"></ImageForm>
         </template>
 
         <template v-else-if="material?.type === 'button'">
@@ -18,11 +17,22 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue"
-const inputValue = ref("")
+import ImageForm from './materialSetForm/ImageForm.vue';
+import TextForm from './materialSetForm/TextForm.vue';
+import { reactive, ref } from 'vue';
 
 const { material } = defineProps(["material"])
+const propsValue: any = defineModel()
 
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+// .item {
+//     // pointer-events: none;
+// }
+
+.preview {
+    width: 100px;
+    height: 100px;
+}
+</style>
