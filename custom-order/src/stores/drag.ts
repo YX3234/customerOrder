@@ -1,4 +1,3 @@
-import type GridTemplateVue from '@/components/grid/GridTemplate.vue'
 import { useElementSize } from '@vueuse/core'
 import { defineStore } from 'pinia'
 import { computed, ref, watch, type Ref, onUnmounted } from 'vue'
@@ -85,7 +84,7 @@ export const useDragStore = defineStore('drag', () => {
     // }
   ])
 
-  const dropContentRef = ref<InstanceType<typeof GridTemplateVue>>()
+  const dropContentRef = ref<InstanceType<any>>()
 
   /**
    * 判断是否在当前四边形内

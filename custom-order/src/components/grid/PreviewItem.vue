@@ -34,7 +34,7 @@ const previewStyle = computed(() => {
   };
 });
 
-const onDragstart = (e) => {
+const onDragstart = (e:any) => {
   const data = props.data;
   data.offsetX = e.offsetX;
   data.offsetY = e.offsetY;
@@ -44,24 +44,24 @@ const onDragstart = (e) => {
   unset(e.target);
 };
 
-const onDragend = (e) => {
+const onDragend = (e:any) => {
   moveing.value = false;
   dragStore.remove(props.groupName);
 };
 
-const onMousedown = (e) => {
+const onMousedown = (e:any) => {
   dragStore.set(props.groupName, props.data);
   emits('resize-start');
   resizeing.value = true;
 
-  e.target.onmousemove = function (event) {
+  e.target.onmousemove = function (event:any) {
     emits('resizeing', {
       width: event.target.offsetWidth,
       height: event.target.offsetHeight,
     });
   };
 
-  e.target.onmouseup = function (event) {
+  e.target.onmouseup = function (event:any) {
     unset(event.target);
     emits('resize-end');
     event.target.style.width = '100%';
@@ -70,7 +70,7 @@ const onMousedown = (e) => {
   };
 };
 
-const unset = (target) => {
+const unset = (target:any) => {
   resizeing.value = false;
   target.onmousemove = null;
   target.onmouseup = null;

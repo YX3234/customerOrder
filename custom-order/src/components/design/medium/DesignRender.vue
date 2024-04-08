@@ -61,7 +61,6 @@
 
 <script setup lang="ts">
 import { useDragStore } from '@/stores/drag';
-import GridTemplateVue from "@/components/grid/GridTemplate.vue"
 import { storeToRefs } from 'pinia';
 import { onMounted, onUpdated, ref, watchEffect } from 'vue';
 import DropContent from '@/components/grid/DropContent.vue';

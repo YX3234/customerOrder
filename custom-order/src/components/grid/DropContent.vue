@@ -100,16 +100,16 @@ const isDelRow = computed(() => {
 });
 
 // 计算 x 坐标
-const getX = (num) => parseInt(num / (boxSize.value.width + props.gap));
+const getX = (num: any) => parseInt(num / (boxSize.value.width + props.gap));
 // 计算 y 坐标
-const getY = (num) => parseInt(num / (boxSize.value.height + props.gap));
+const getY = (num: number) => parseInt(num / (boxSize.value.height + props.gap));
 // 计算列数
-const getColumn = (num) => ceil(num / (boxSize.value.width + props.gap));
+const getColumn = (num: any) => ceil(num / (boxSize.value.width + props.gap));
 // 计算行数
-const getRow = (num) => ceil(num / (boxSize.value.height + props.gap));
+const getRow = (num: any) => ceil(num / (boxSize.value.height + props.gap));
 
 // 进入放置目标
-const onDragenter = (e) => {
+const onDragenter = (e: any) => {
   e.preventDefault();
   const dragData = dragStore.get(props.groupName);
   if (dragData) {
@@ -123,7 +123,7 @@ const onDragenter = (e) => {
 };
 
 // 在目标中移动
-const onDragover = (e) => {
+const onDragover = (e: any) => {
   e.preventDefault();
   const dragData = dragStore.get(props.groupName);
   if (dragData) {
@@ -133,14 +133,14 @@ const onDragover = (e) => {
 };
 
 // 离开目标
-const onDragleave = (e) => {
+const onDragleave = (e: any) => {
   e.preventDefault();
   current.show = false;
   current.id = undefined;
 };
 
 // 放置在目标上
-const onDrop = async (e) => {
+const onDrop = async (e: any) => {
   e.preventDefault();
   current.show = false;
   const dragData = dragStore.get(props.groupName); // JSON.parse(e.dataTransfer.getData('application/json'))
@@ -171,7 +171,7 @@ const onDrop = async (e) => {
 };
 
 // 删除元素
-const onRemovePreviewItem = (el) => {
+const onRemovePreviewItem = (el: any) => {
 
   if (props.beforeRemove(el, list.value)) {
     list.value = list.value.filter((item) => item !== el);
@@ -193,7 +193,7 @@ const onResizeStart = () => {
 };
 
 // 调正大小时
-const onResizeing = (e) => {
+const onResizeing = (e: any) => {
   const dragData = dragStore.get(props.groupName);
   current.column = getColumn(e.width);
   current.row = getRow(e.height);
@@ -246,9 +246,9 @@ defineExpose({
     <div class="drop-content__preview">
       <!-- <canvas ref="canvasRef" style="opacity: 0.2;"></canvas> -->
       <PreviewItem v-for="item in list" :key="item.id" :data="item" :group-name="groupName" :style="{
-        pointerEvents:
-          current.show && item.id !== current.id ? 'none' : 'all',
-      }" @close="onRemovePreviewItem(item)" @resize-start="onResizeStart" @resizeing="onResizeing"
+      pointerEvents:
+        current.show && item.id !== current.id ? 'none' : 'all',
+    }" @close="onRemovePreviewItem(item)" @resize-start="onResizeStart" @resizeing="onResizeing"
         @resize-end="onResizeEnd">
         <slot name="preview-item" :data="item" :moving="current.show && item.id !== current.id"></slot>
       </PreviewItem>
