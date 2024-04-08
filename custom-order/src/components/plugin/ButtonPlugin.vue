@@ -17,7 +17,7 @@ import { } from "vue"
     white-space: normal; //自动换行
     word-break: break-all; //连续数字、英文字母自动换行
     table-layout: fixed;
-
+    padding:0;
     // &>span {
     //     display: block;
     //     width; //自动换行
