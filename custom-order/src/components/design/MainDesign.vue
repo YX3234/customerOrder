@@ -12,7 +12,7 @@ import RightDesignBarVue from "./right/RightDesignBar.vue";
         <RightDesignBarVue></RightDesignBarVue>
     </div>
 </template>
-  
+
 <style scoped>
 .outer {
     display: flex;

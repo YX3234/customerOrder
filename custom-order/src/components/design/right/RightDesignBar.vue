@@ -8,7 +8,7 @@
         </div>
     </div>
 </template>
-  
+
 <script setup lang="ts">
 import { useMaterialStore } from '@/stores/material'
 import MaterialItem from './MaterialItem.vue';
@@ -59,3 +59,10 @@ watchEffect(() => {
 // const material = { type: "11", props: { content: "123" } }
 
 </script>
+
+<style scoped>
+.outer {
+    width: 300px;
+    overflow: scroll;
+}
+</style>

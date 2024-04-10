@@ -37,15 +37,17 @@
                 </div>
             </div>
         </div>
+
     </div>
+    <!-- 打开对话框后网页会抖动，原因：打开对话框时滚动条消失，弹性布局自动伸缩 -->
 </template>
 
 <script setup lang="ts">
 import { useDragStore } from '@/stores/drag';
-import { useDraggable } from 'vue-draggable-plus'
+// import { useDraggable } from 'vue-draggable-plus'
 import { storeToRefs } from 'pinia';
-import { onMounted, ref } from 'vue';
 import DragItemVue from '@/components/grid/DragItem.vue';
+
 
 withDefaults(
     defineProps<{
@@ -60,6 +62,8 @@ withDefaults(
 const dragStore = useDragStore();
 const { sourceObj, containerList, } = storeToRefs(dragStore);
 const { pluginList } = dragStore;
+// const router = useRouter();
+
 // const list = [
 //     {
 //         title: '1*X',
@@ -125,29 +129,4 @@ const { pluginList } = dragStore;
     /* justify-content: space-around; */
     padding: 20px;
 }
-
-// .drag-sidebar {
-//     overflow-y: auto;
-//     height: 100%;
-
-//     .drag-group {
-//         margin: 0 18px 24px;
-
-//         &__title {
-//             font-size: 14px;
-//             font-family: Source Han Sans CN;
-//             font-weight: 700;
-//             color: #555555;
-//             margin-bottom: 12px;
-//             display: flex;
-//             align-items: center;
-//         }
-
-//         &__content {
-//             display: flex;
-//             flex-wrap: wrap;
-//             gap: 16px 20px;
-//         }
-//     }
-// }
 </style>

@@ -17,11 +17,7 @@
 </template>
 
 <script setup lang="ts">
-import { useDragStore } from '@/stores/drag';
-import { storeToRefs } from 'pinia';
-import { onMounted, onUpdated, ref, watchEffect } from 'vue';
-import DropContent from '@/components/grid/DropContent.vue';
-import DragComponet from '@/components/design/medium/DragComponent.vue'
+import DragComponet from '@/components/design/medium/components/DragComponent.vue'
 // import { useDraggable } from 'vue-draggable-plus';
 
 
@@ -30,8 +26,8 @@ import DragComponet from '@/components/design/medium/DragComponent.vue'
 // console.log("testData", Modeldata)
 
 
-const renderList = [{ id: '0', name: "请拖动插件" }];
-const isDefault = ref(true);
+// const renderList = [{ id: '0', name: "请拖动插件" }];
+// const isDefault = ref(true);
 // const getPluginComponent = (type: string) => {
 //     if (isDefault.value) isDefault.value = !containerList.value.length;
 //     switch (type) {
@@ -43,7 +39,7 @@ const isDefault = ref(true);
 //         default: return "undefined";
 //     }
 // }
-let compName = 'undefined';    //不能是响应式数据，在执行模板中的IIFE时会频繁触发刷新
+// let compName = 'undefined';    //不能是响应式数据，在执行模板中的IIFE时会频繁触发刷新
 // useDraggable(targetObj, containerList, {
 //     animation: 150,
 //     group: "plugin",
@@ -52,11 +48,11 @@ let compName = 'undefined';    //不能是响应式数据，在执行模板中�
 //     }
 // })
 
-onMounted(() => {
+// onMounted(() => {
 
-})
-onUpdated(() => {
-})
+// })
+// onUpdated(() => {
+// })
 
 </script>
 

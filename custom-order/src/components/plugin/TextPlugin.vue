@@ -32,6 +32,6 @@ const handleClick = () => {
 <style scoped>
 .textWrapper {
     /* word-wrap: break-word; */
-    overflow: scroll;
+    /* overflow: scroll; */
 }
 </style>
