@@ -1,7 +1,7 @@
 {
   "extends": "@vue/tsconfig/tsconfig.dom.json",
-  "include": ["env.d.ts", "src/**/*", "src/**/*.vue","src/components/**/*.vue"],
-  "files": ["src/views/LayoutView.vue","src/views/DesignView.vue","src/components/plugin/DragModel.vue"],
+  "include": ["env.d.ts", "src/**/*", "src/**/*.vue","src/components/**/**/*","src/components/**/**/**/*","d:/編程/前端/js/project/Custom order/custom-order/src/**/*"],
+  // "files": ["src/views/LayoutView.vue","src/views/DesignView.vue","src/components/plugin/PluginMarket.vue","src/views/CreatePlugin.vue"],
   "exclude": ["src/**/__tests__/*"],
   "compilerOptions": {
     "composite": true,

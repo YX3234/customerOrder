@@ -28,7 +28,7 @@ const handleSelect = (key: string, keypath: string[]) => {
         <div class="flex-grow"></div>
         <el-menu-item index="/design">设计</el-menu-item>
         <div class="flex-grow"></div>
-        <el-menu-item index="/other" disabled>其他</el-menu-item>
+        <el-menu-item index="/createPlugin">创建插件</el-menu-item>
     </el-menu>
 </template>
 <style scoped>
