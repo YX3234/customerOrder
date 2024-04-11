@@ -12,12 +12,14 @@
                 }}
                 
             </div> -->
-        <DragComponet :column='12' :row='12' :gap='2'></DragComponet>
+        <CanvasTab />
+        <!-- <DragComponet :column='12' :row='12' :gap='2'></DragComponet> -->
     </div>
 </template>
 
 <script setup lang="ts">
 import DragComponet from '@/components/design/medium/components/DragComponent.vue'
+import CanvasTab from './components/CanvasTab.vue';
 // import { useDraggable } from 'vue-draggable-plus';
 
 
@@ -60,15 +62,10 @@ import DragComponet from '@/components/design/medium/components/DragComponent.vu
 .mediumOuter {
     width: 66vw;
     background-color: #8484847e;
-
+    
 }
 
-.setDragaArea {
-    border: 1px solid black;
-    margin: 0 auto;
-    width: 375px;
-    height: 500px;
-}
+
 
 /* .setDragaArea>div {
     width: 100%;

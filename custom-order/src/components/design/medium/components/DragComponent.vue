@@ -1,7 +1,8 @@
 <template>
   <!-- 用于封装拖拽放置区域的组件 -->
   <div class="setDragaArea" ref="targetObj">
-    <DropContent v-model="Modeldata" ref="dropContentRef" group-name="drag-demo" :row="row" :column="column" :gap="gap">
+    <DropContent v-model="Modeldata[index]" ref="dropContentRef" group-name="drag-demo" :row="row" :column="column"
+      :gap="gap">
       <template #preview-item="{ data }">
         <div style="background-color: sandybrown;height: 100%;border-radius: 6px;">
           <!-- <component :is="data?.key" :disabled="true" :data="data"></component> -->
@@ -40,10 +41,11 @@
       <button @click="() => dropContentRef?.deleteRow()">删除行</button>
     </div>
     <h3 class="mb16">预览</h3>
-    <div style="width: 100%; height: 100%">
-      <PreviewLayout :data="Modeldata" :row="12" :column="12" :gap="6" :skipEmpty="false" />
+    <div class="preview" style="width: 100%; height: 100%">
+      <PreviewLayout :data="Modeldata[index]" :row="row" :column="column" :gap="gap" :skipEmpty="false" />
     </div>
   </div>
+
 </template>
 
 <script setup lang="ts">
@@ -55,8 +57,25 @@ import { storeToRefs } from "pinia";
 
 const dragStore = useDragStore();
 const { Modeldata } = storeToRefs(dragStore);
-let { column, row, gap } = defineProps(['column', 'row', 'gap'])
+const { getDragDataIndex } = dragStore;
+let { column, row, gap, name } = defineProps(['column', 'row', 'gap', 'name'])
 const dropContentRef = ref<InstanceType<typeof DropContent>>();
+/** 根据标签页name获取对应拖拽数据 */
+const index = getDragDataIndex(name) || 0
+
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.setDragaArea {
+  border: 1px solid black;
+  margin: 0 auto;
+  width: 375px;
+  height: 600px;
+  overflow: scroll;
+
+  .preview {
+    width: 100%;
+    overflow: hidden;
+  }
+}
+</style>

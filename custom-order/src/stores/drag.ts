@@ -63,7 +63,27 @@ export const useDragStore = defineStore('drag', () => {
   const rowCount = ref<number>(10) //行数
   const columnCount = ref<number>(12) //列数
   const gap = ref<number>(5) //间隙大小
-  const Modeldata = ref([
+
+  /** 记录key-标签页名 value-拖拽已放置组件数据索引的哈希表
+   * 用于通过标签页名查找对应已放置组件数据数组
+   */
+  class IndexData {
+    indexMap = new Map()
+    set(name: string, index: number) {
+      this.indexMap.set(name, index)
+    }
+
+    remove(name: string) {
+      this.indexMap.delete(name)
+    }
+
+    get(name: string): undefined | number {
+      return this.indexMap.get(name)
+    }
+  }
+  const indexMap = new IndexData()
+  /** 存储已放置组件的数据 */
+  const Modeldata = ref<any[]>([
     // {
     //   id: 1111,
     //   key: 'demo-component',
@@ -83,6 +103,21 @@ export const useDragStore = defineStore('drag', () => {
     //   y: 3
     // }
   ])
+  /** 新增索引哈希
+   * @param key 必须唯一，否则无法添加
+   */
+  const insertIndexMap = (key: string, value: number) => {
+    indexMap.set(key, value)
+    // indexMap.set('2', 2)
+    Modeldata.value.push([])
+    console.log('debug1', indexMap, key, value)
+  }
+  const getDragDataIndex = (key: string) => {
+    console.log('debug2', indexMap.get(key))
+    return indexMap.get(key)
+  }
+  insertIndexMap('1', 0)
+  insertIndexMap('2', 1)
 
   const dropContentRef = ref<InstanceType<any>>()
 
@@ -239,6 +274,9 @@ export const useDragStore = defineStore('drag', () => {
     pluginList,
     containerList,
     Modeldata,
+    indexMap,
+    insertIndexMap,
+    getDragDataIndex,
     rowCount,
     columnCount,
     gap,
