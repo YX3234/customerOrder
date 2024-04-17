@@ -1,7 +1,8 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import LayoutView from '../views/LayoutView.vue'
 import HomeView from '../views/HomeView.vue'
-import MealItem from '@/components/plugin/components/MealItem.vue'
+// import MealItem from '@/components/plugin/mealItem/MealItem.vue'
+import MealCreate from '@/components/plugin/mealItem/MealCreate.vue'
 import CreatePlugin from '@/views/CreatePlugin.vue'
 
 const router = createRouter({
@@ -29,7 +30,7 @@ const router = createRouter({
         },
         {
           path: '/createPlugin/mealItem',
-          component: MealItem
+          component: MealCreate
         },
         {
           path: '/',

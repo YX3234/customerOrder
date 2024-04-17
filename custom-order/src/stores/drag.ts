@@ -25,7 +25,7 @@ export const useDragStore = defineStore('drag', () => {
   const dragData = new DragData<DragItemData>()
   const sourceObj = ref<HTMLElement>() //用于存放被拖拽的模板引用
   const targetObj = ref<HTMLElement>() //用于存放目标容器的模板引用
-  const pluginList = [
+  const pluginList = ref([
     // {
     //   title: '轮播图',
     //   list: [{ key: 'CarouselPlugin', title: '10x12', column: 12, row: 3, name: '轮播图' }]
@@ -56,9 +56,25 @@ export const useDragStore = defineStore('drag', () => {
     // },
     {
       title: '文本',
-      list: [{ key: 'TextPlugin', title: '10x1', column: 10, row: 1, name: '文本' }]
+      list: [{ key: 'TextPlugin', title: '2x1', column: 2, row: 1, name: '文本' }]
     }
-  ]
+  ])
+  /** 新增用户定义组件 */
+  const insertUserPlugin = (tab: any, data: any) => {
+    let index = pluginList.value.findIndex((e) => e.title === '自定义插件')
+    if (index === -1) {
+      pluginList.value.push({ title: '自定义插件', list: [] })
+      index = pluginList.value.length - 1
+    }
+    pluginList.value[index].list.push({
+      key: 'userDesignPlugin',
+      title: tab?.content?.column + 'x' + tab?.content?.row,
+      column: tab?.content?.column,
+      row: tab?.content?.row,
+      name: tab?.name
+    })
+    console.log('test', pluginList.value[index], tab, data)
+  }
   const containerList = ref<{ id: string; name: string }[]>([])
   const rowCount = ref<number>(10) //行数
   const columnCount = ref<number>(12) //列数
@@ -272,6 +288,7 @@ export const useDragStore = defineStore('drag', () => {
     sourceObj,
     targetObj,
     pluginList,
+    insertUserPlugin,
     containerList,
     Modeldata,
     indexMap,

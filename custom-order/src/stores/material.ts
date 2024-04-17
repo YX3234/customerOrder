@@ -18,6 +18,12 @@ export const useMaterialStore = defineStore('meterial', () => {
     }
 
     // 其他通用方法
+    update = (props: any) => {
+      // 执行更新文本内容的逻辑
+      materialList.value = [...materialList.value] //用于触发vue响应式
+      this.props = props
+      console.log('update', materialList.value[currentMaterialIndex.value].props)
+    }
   }
 
   class TextMaterial extends Material {
@@ -36,7 +42,19 @@ export const useMaterialStore = defineStore('meterial', () => {
       console.log('update', materialList.value[currentMaterialIndex.value].props)
     }
   }
-
+  class MealItemMaterial extends Material {
+    constructor(props: Record<string, any>) {
+      super('mealItem', {})
+      this.props = props
+    }
+    props: Record<string, any> = {
+      image: {},
+      title: {},
+      desc: {},
+      price: {},
+      count: {}
+    }
+  }
   class ImageMaterial extends Material {
     constructor(props: ImageProps) {
       super('image', {})
@@ -66,7 +84,7 @@ export const useMaterialStore = defineStore('meterial', () => {
   /** 已创建的物料队列 */
   const materialList = ref<Material[]>([])
   /** 当前选中的物料 */
-  let currentMaterialIndex = ref<number>(1)
+  const currentMaterialIndex = ref<number>(1)
   /** 创建物料类实例
    * @param layout 布局信息
    * @param props 属性

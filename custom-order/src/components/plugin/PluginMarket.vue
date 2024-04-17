@@ -16,6 +16,10 @@ const handleMealItemClick = () => {
 </script>
 
 <style lang="scss" scoped>
+* {
+    font-size: 16px;
+}
+
 .mealItem {
 
     width: 200px;

@@ -15,6 +15,12 @@
           <el-form-item label="标签名">
             <el-input v-model="formData.title" />
           </el-form-item>
+          <el-form-item label="画布尺寸-宽度">
+            <el-input v-model="formData.width" />
+          </el-form-item>
+          <el-form-item label="画布尺寸-高度">
+            <el-input v-model="formData.height" />
+          </el-form-item>
           <el-form-item label="行数">
             <el-input v-model="formData.row" />
           </el-form-item>
@@ -48,10 +54,10 @@ import { useDragStore } from "@/stores/drag";
 const dragStore = useDragStore();
 const canvasStore = useCanvas();
 const { indexMap, Modeldata, insertIndexMap } = dragStore;
-const { editableTabsValue } = storeToRefs( canvasStore);
+const { editableTabsValue } = storeToRefs(canvasStore);
 const { addTab } = canvasStore;
 const dialogVisible = ref<boolean>(false)
-const formData = ref<{ title: string; row: number; column: number; gap: number }>({ title: '', column: 0, row: 0, gap: 0 })
+const formData = ref<{ title: string, row: number, column: number, gap: number, height: number, width: number }>({ title: '', column: 0, row: 0, gap: 0, height: 0, width: 0 })
 
 const handleAddCanvasClick = () => {
   dialogVisible.value = true;
@@ -60,7 +66,7 @@ const handleRenderClick = () => { }
 const handleRedictClick = () => { }
 const handleFormCommit = () => {
   addTab(formData.value);
-  insertIndexMap(editableTabsValue.value, Modeldata.length); 
+  insertIndexMap(editableTabsValue.value, Modeldata.length);
   dialogVisible.value = false;
 }
 </script>

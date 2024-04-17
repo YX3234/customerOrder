@@ -1,8 +1,8 @@
 <template>
   <!-- 用于封装拖拽放置区域的组件 -->
   <div class="setDragaArea" ref="targetObj">
-    <DropContent v-model="Modeldata[index]" ref="dropContentRef" group-name="drag-demo" :row="row" :column="column"
-      :gap="gap">
+    <DropContent v-model="Modeldata[index]" ref="dropContentRef" group-name="drag-demo" :row="canvas.row"
+      :column="canvas.column" :gap="canvas.gap">
       <template #preview-item="{ data }">
         <div style="background-color: sandybrown;height: 100%;border-radius: 6px;">
           <!-- <component :is="data?.key" :disabled="true" :data="data"></component> -->
@@ -42,7 +42,8 @@
     </div>
     <h3 class="mb16">预览</h3>
     <div class="preview" style="width: 100%; height: 100%">
-      <PreviewLayout :data="Modeldata[index]" :row="row" :column="column" :gap="gap" :skipEmpty="false" />
+      <PreviewLayout :data="Modeldata[index]" :row="canvas.row" :column="canvas.column" :gap="canvas.gap"
+        :skipEmpty="false" />
     </div>
   </div>
 
@@ -58,24 +59,27 @@ import { storeToRefs } from "pinia";
 const dragStore = useDragStore();
 const { Modeldata } = storeToRefs(dragStore);
 const { getDragDataIndex } = dragStore;
-let { column, row, gap, name } = defineProps(['column', 'row', 'gap', 'name'])
+let { canvas, name } = defineProps(['canvas', 'name'])
+const { width, height } = canvas
 const dropContentRef = ref<InstanceType<typeof DropContent>>();
 /** 根据标签页name获取对应拖拽数据 */
 const index = getDragDataIndex(name) || 0
 
 </script>
 
-<style lang="scss" scoped>
+<style scoped>
 .setDragaArea {
   border: 1px solid black;
   margin: 0 auto;
-  width: 375px;
-  height: 600px;
+  width: v-bind(width + 'px');
+  height: v-bind(height + 'px');
   overflow: scroll;
 
-  .preview {
-    width: 100%;
-    overflow: hidden;
-  }
+
+}
+
+.preview {
+  width: 100%;
+  overflow: hidden;
 }
 </style>

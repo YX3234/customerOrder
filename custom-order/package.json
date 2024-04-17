@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "vite --host",
     "build:pro": "run-p type-check \"build-only {@}\" --",
-    "build":"vite build --mode production",
+    "build": "vite build --mode production",
     "preview": "vite preview --host",
     "test:unit": "vitest",
     "build-only": "vite build",
@@ -21,6 +21,7 @@
     "pinia": "^2.1.7",
     "sass": "^1.70.0",
     "vue": "^3.3.11",
+    "vue-drag-resize": "^1.5.4",
     "vue-draggable-plus": "^0.3.5",
     "vue-router": "^4.2.5"
   },

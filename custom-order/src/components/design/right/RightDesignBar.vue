@@ -4,7 +4,11 @@
             <h1>物料详情</h1>
             <MaterialItem :material="materialList[currentMaterialIndex]" v-model="propsValue">
             </MaterialItem>
-            <el-button @click="buildWebSocket">建立webSocket通信</el-button>
+        </div>
+        <div class="footer">
+            <el-button @click="save2Plugin">作为组件保存</el-button>
+            <el-button type="primary" @click="buildWebSocket">提交网页</el-button>
+
         </div>
     </div>
 </template>
@@ -14,10 +18,15 @@ import { useMaterialStore } from '@/stores/material'
 import MaterialItem from './MaterialItem.vue';
 import { ref, toRefs, watchEffect } from 'vue';
 import { storeToRefs } from 'pinia';
+import { useDragStore } from '@/stores/drag';
+import { useCanvas } from '@/stores/canvas';
 const materialStore = useMaterialStore();
+const dragStore = useDragStore();
+const canvasStore = useCanvas();
 const { materialList, currentMaterialIndex } = storeToRefs(materialStore)
+const { Modeldata, insertUserPlugin, getDragDataIndex } = dragStore;
+const { editableTabs, activeTabsValue } = storeToRefs(canvasStore)
 let propsValue = { ...materialList.value[currentMaterialIndex.value]?.props }
-
 const buildWebSocket = async () => {
     // const socket = new WebSocket('ws://localhost:4000'); // 替换为你的服务器地址和端口
 
@@ -53,6 +62,10 @@ const buildWebSocket = async () => {
         console.log("ERROR", e)
     })
 }
+const save2Plugin = () => {
+    let index = getDragDataIndex(activeTabsValue.value) || -1;
+    insertUserPlugin(editableTabs.value[index], Modeldata[index]);
+}
 watchEffect(() => {
     propsValue = { ...materialList.value[currentMaterialIndex.value]?.props }
 })
@@ -64,5 +77,7 @@ watchEffect(() => {
 .outer {
     width: 300px;
     overflow: scroll;
+    display: flex;
+    flex-direction: column
 }
 </style>

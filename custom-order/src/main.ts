@@ -1,4 +1,4 @@
-// import './assets/main.css'
+import './assets/main.css'
 import 'element-plus/dist/index.css'
 
 import { createApp, h, defineComponent } from 'vue'
@@ -14,6 +14,7 @@ import ImagePluginVue from './components/plugin/ImagePlugin.vue'
 import CarouselPluginVue from './components/plugin/CarouselPlugin.vue'
 import WrapperPluginVue from './components/plugin/WrapperPlugin.vue'
 import DragModelVue from './components/plugin/DragModel.vue'
+import PreviewLayout from './components/grid/PreviewLayout.vue'
 
 const app = createApp(App)
 
@@ -61,4 +62,5 @@ app
   .component('WrapperPlugin', WrapperPluginVue)
   .component('DragModel', DragModelVue)
   .component('demo-component', createPluginHook())
+  .component('userDesignPlugin', createPluginHook())
 app.mount('#app')

@@ -1,9 +1,9 @@
 <template>
-    <el-tabs v-model="editableTabsValue" type="card" class="demo-tabs" closable @tab-remove="removeTab">
+    <el-tabs v-model="editableTabsValue" type="card" class="demo-tabs" closable @tab-remove="removeTab"
+        @tab-click="handleTabClick">
         <el-tab-pane v-for="item in editableTabs" :key="item.name" :label="item.title" :name="item.name">
             {{ item.content }}
-            <DragComponent :column="item.content.column" :row="item.content.row" :gap="item.content.gap"
-                :name="item.name">
+            <DragComponent :canvas="item.content" :name="item.name">
             </DragComponent>
         </el-tab-pane>
     </el-tabs>
@@ -13,10 +13,16 @@ import { useCanvas } from '@/stores/canvas';
 import { storeToRefs } from 'pinia';
 import { ref } from 'vue'
 import DragComponent from './DragComponent.vue';
+import type { TabsPaneContext } from 'element-plus/es/components/tabs/src/constants.mjs';
 
 const canvasStore = useCanvas();
-const { editableTabs, editableTabsValue } = storeToRefs(canvasStore);
+const { editableTabs, editableTabsValue, activeTabsValue } = storeToRefs(canvasStore);
 const { addTab, removeTab } = canvasStore;
+
+const handleTabClick = (pane: TabsPaneContext, ev: Event) => {
+    console.log(pane.props?.name)
+    activeTabsValue.value = pane.props?.name + ''
+}
 
 </script>
 <style>

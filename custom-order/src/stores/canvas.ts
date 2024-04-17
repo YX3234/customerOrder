@@ -15,6 +15,7 @@ export const useCanvas = defineStore('canvas', () => {
   let tabIndex = 2
   /** 标签页名 */
   const editableTabsValue = ref('2')
+  const activeTabsValue = ref('2')
   /** 标签页数据 */
   const editableTabs = ref([
     {
@@ -23,7 +24,9 @@ export const useCanvas = defineStore('canvas', () => {
       content: {
         row: 12,
         column: 12,
-        gap: 2
+        gap: 2,
+        width: 375,
+        height: 600
       }
     },
     {
@@ -32,12 +35,21 @@ export const useCanvas = defineStore('canvas', () => {
       content: {
         row: 6,
         column: 6,
-        gap: 2
+        gap: 2,
+        width: 200,
+        height: 200
       }
     }
   ])
   /** 新增标签页 */
-  const addTab = (props: { title: string; row: number; column: number; gap: number }) => {
+  const addTab = (props: {
+    title: string
+    row: number
+    column: number
+    gap: number
+    width: number
+    height: number
+  }) => {
     const newTabName = `${++tabIndex}`
     editableTabs.value.push({
       title: props.title,
@@ -45,7 +57,9 @@ export const useCanvas = defineStore('canvas', () => {
       content: {
         row: +props.row,
         column: +props.column,
-        gap: +props.gap
+        gap: +props.gap,
+        width: +props.width,
+        height: +props.height
       }
     })
     editableTabsValue.value = newTabName
@@ -69,5 +83,5 @@ export const useCanvas = defineStore('canvas', () => {
     editableTabs.value = tabs.filter((tab) => tab.name !== targetName)
   }
   /** 画布数据 */
-  return { setCanvas, editableTabsValue, editableTabs, addTab, removeTab, }
+  return { setCanvas, editableTabsValue, activeTabsValue, editableTabs, addTab, removeTab }
 })
